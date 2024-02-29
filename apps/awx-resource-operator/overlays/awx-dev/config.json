@@ -1,9 +1,9 @@
 {
-  "appName": "awx-operator",
-  "userGivenName": "awx-operator",
-  "destNamespace": "awx-operator",
+  "appName": "awx-resource-operator",
+  "userGivenName": "awx-resource-operator",
+  "destNamespace": "awx-resource-operator",
   "destServer": "https://kubernetes.default.svc",
-  "srcPath": "apps/awx-operator/overlays/awx-dev",
+  "srcPath": "apps/awx-resource-operator/overlays/awx-dev",
   "srcRepoURL": "https://github.com/egmar/aap-gitops.git",
   "srcTargetRevision": "",
   "labels": null,
