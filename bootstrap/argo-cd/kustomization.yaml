@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+configMapGenerator:
+  - behavior: merge
+    literals:
+      - application.resourceTrackingMethod="annotation+label"
+      - kustomize.buildOptions="--enable-helm"
+      - |
+        repository.credentials=- passwordSecret:
+            key: git_token
+            name: autopilot-secret
+          url: https://github.com/
+          usernameSecret:
+            key: git_username
+            name: autopilot-secret
+      - url="https://awx-ops.k8s.local"
+    name: argocd-cm
+  - behavior: merge
+    literals:
+      - server.enable.proxy.extension="true"
+    name: argocd-cmd-params-cm
+kind: Kustomization
+namespace: argocd
+resources:
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.8.2/manifests/install.yaml
+  - ./ingress.yaml
+  - ./ca.yaml
+patches:
+  - path: ./rbac.yaml
+patchesJson6902:
+  - patch: |-
+      - op: add
+        path: /rules/0
+        value:
+          apiGroups:
+          - batch
+          resources:
+          - jobs
+          verbs:
+          - "*"
+    target:
+      group: rbac.authorization.k8s.io
+      version: v1
+      kind: Role
+      name: argocd-server
+      namespace: argocd
+components:
+  # extensions controller component
+  - https://github.com/argoproj-labs/argocd-extensions/manifests?ref=v0.2.1

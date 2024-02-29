@@ -1,0 +1,11 @@
+{
+  "appName": "cert-manager",
+  "userGivenName": "cert-manager",
+  "destNamespace": "cert-manager",
+  "destServer": "https://93947678-cd15-4eb7-95af-4df0ac8f5466.k8s.ondigitalocean.com",
+  "srcPath": "apps/cert-manager/overlays/do-k8s",
+  "srcRepoURL": "https://github.com/egmar/aap-gitops.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
